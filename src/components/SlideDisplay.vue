@@ -58,6 +58,18 @@ watch(
   { deep: true },
 )
 
+const CONTAINER_W = 1345
+const CONTAINER_H = 1000
+
+const onImageLoad = (e) => {
+  const img = e.target
+  const natW = img.naturalWidth
+  const natH = img.naturalHeight
+  const scale = Math.min(CONTAINER_W / natW, CONTAINER_H / natH)
+  img.style.width = Math.round(natW * scale) + 'px'
+  img.style.height = Math.round(natH * scale) + 'px'
+}
+
 onMounted(() => {
   startSlideshow()
 })
@@ -69,15 +81,16 @@ onUnmounted(() => {
 
 <template>
   <div class="slide-container">
-    {{ currentSlide }}
     <TransitionGroup name="crossfade">
       <div v-if="currentSlide" :key="currentIndex" class="slide">
-        <img
-          v-if="currentSlide.image.url"
-          :src="uploadUUrl + currentSlide.image.url"
-          :alt="currentSlide.description"
-          class="slide-image"
-        />
+        <div v-if="currentSlide.image.url" class="slide-image-wrapper">
+          <img
+            :src="uploadUUrl + currentSlide.image.url"
+            :alt="currentSlide.description"
+            class="slide-image"
+            @load="onImageLoad"
+          />
+        </div>
       </div>
       <div v-else class="no-slide">Aucun slide actif</div>
     </TransitionGroup>
@@ -87,29 +100,38 @@ onUnmounted(() => {
 <style scoped>
 .slide-container {
   width: 1345px;
-  height: 1080px;
+  height: 1000px;
   margin: 0;
   padding: 0;
   position: relative;
   overflow: hidden;
-  background-color: #000;
+  background-color: #e9dead;
 }
 
 .slide {
   width: 1345px;
-  height: 1080px;
+  height: 1000px;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-.slide-image {
-  max-width: 1345px;
-  max-height: 1080px;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+.slide-image-wrapper {
+  padding: 10px 0;
+  width: 1350px;
+  height: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide-image-wrapper img {
+
+  max-width: 100%;
+  max-height: 100%;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 28px;
+  box-sizing: border-box;
 }
 
 .slide-description {

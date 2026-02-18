@@ -148,7 +148,7 @@ onBeforeUnmount(() => {
     v-if="affichage"
     class="home-view"
     :style="{
-      backgroundColor: '#00ff00',
+      backgroundColor: '#e9dead',
       width: '1920px',
       height: '1080px',
       padding: '0',
@@ -158,17 +158,24 @@ onBeforeUnmount(() => {
     <p v-if="loading">Chargement…</p>
     <p v-if="error" style="color: red">{{ error }}</p>
     <template v-if="!loading && !error">
-      <NamazEvent
+      <div
         v-if="affichage.data.namaz_programme"
-        :prayer-times="prayerTimes"
-        :events="events"
-        :hijri_date="affichage.data.hijri_date"
-        :hijri_date_decalage="affichage.data.hijri_date_decalage"
-        :pre_texte_date="affichage.data.pre_texte_date"
-      />
+        class="namaz-wrapper"
+        :class="{ 'namaz-wrapper--with-ticker': affichage.data.helane }"
+      >
+        <NamazEvent
+          :prayer-times="prayerTimes"
+          :events="events"
+          :hijri_date="affichage.data.hijri_date"
+          :hijri_date_decalage="affichage.data.hijri_date_decalage"
+          :pre_texte_date="affichage.data.pre_texte_date"
+        />
+      </div>
       <HelanesTicker v-if="affichage.data.helane" :data="helanes.data" />
 
-      <SlideDisplay :slides="slides" />
+      <div class="slide-wrapper" :class="{ 'slide-wrapper--centered': !affichage.data.helane }">
+        <SlideDisplay :slides="slides" />
+      </div>
 
       <!--       <EventsList v-if="config.events?.enabled !== false" :data="events" :config="config.events" />
 
@@ -178,3 +185,25 @@ onBeforeUnmount(() => {
 
   <div v-else-if="!loading">Aucune configuration active.</div>
 </template>
+
+<style scoped>
+.namaz-wrapper {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 1080px;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+
+.namaz-wrapper--with-ticker {
+  height: 1000px;
+}
+
+.slide-wrapper--centered {
+  height: 1080px;
+  display: flex;
+  align-items: center;
+}
+</style>

@@ -221,20 +221,19 @@ onBeforeUnmount(() => {
 <style scoped>
 .prayer-display {
   font-family: 'Calibri';
+  background: rgba(255, 255, 255, 0.2);
   z-index: 1;
-  position: fixed;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
   width: 575px;
-  height: 1080px;
-  max-height: 100vh;
-  background-color: #e9dead;
-  /*   border-radius: 20px 0 0 20px;
- */ /* box-shadow: -10px 0 60px rgba(0, 0, 0, 0.5); */
+  height: 950px;
+  /*max-height: 100vh;*/
+  /*background-color: #e9dead;*/
+  border-radius: 35px;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+  /*box-shadow: -10px 0 60px rgba(0, 0, 0, 0.5);*/
   display: flex;
   flex-direction: column;
-  padding: 40px 30px;
+  /*margin: 30px 10px;*/
+  /*padding: 40px 30px;*/
   color: white;
   z-index: 1;
   overflow-y: auto;
@@ -246,6 +245,7 @@ onBeforeUnmount(() => {
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
+  margin-top: 40px;
 }
 
 .digital-time {
@@ -262,12 +262,12 @@ onBeforeUnmount(() => {
 }
 
 .prayer-times {
-  background: rgba(255, 255, 255, 0.2);
+
   border-radius: 15px;
   padding: 25px;
   margin-bottom: 20px;
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
+
 }
 
 .prayer-times h2 {
