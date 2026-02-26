@@ -1,8 +1,10 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import axios from '@/lib/strapi'
 import socket from '@/lib/socket-io'
 import csvData from '@/assets/time_run_sdn_formatted.csv?raw'
+import designClair from '@/assets/design-clair.json'
+import designFonce from '@/assets/design-fonce.json'
 
 import HelanesTicker from '@/components/HelanesTicker.vue'
 import NamazEvent from '@/components/NamazEvent.vue'
@@ -25,6 +27,10 @@ const slides = ref([])
 
 const loading = ref(true)
 const error = ref(null)
+
+const designTheme = computed(() =>
+  affichage.value?.data?.design === 'Clair' ? designClair : designFonce
+)
 
 const loadPrayerTimes = () => {
   const now = new Date()
@@ -148,7 +154,7 @@ onBeforeUnmount(() => {
     v-if="affichage"
     class="home-view"
     :style="{
-      backgroundColor: '#e9dead',
+      backgroundColor: designTheme.background,
       width: '1920px',
       height: '1080px',
       padding: '0',
@@ -169,12 +175,13 @@ onBeforeUnmount(() => {
           :hijri_date="affichage.data.hijri_date"
           :hijri_date_decalage="affichage.data.hijri_date_decalage"
           :pre_texte_date="affichage.data.pre_texte_date"
+          :design="designTheme"
         />
       </div>
       <HelanesTicker v-if="affichage.data.helane" :data="helanes.data" />
 
       <div class="slide-wrapper" :class="{ 'slide-wrapper--centered': !affichage.data.helane }">
-        <SlideDisplay :slides="slides" />
+        <SlideDisplay :slides="slides" :design="designTheme" />
       </div>
 
       <!--       <EventsList v-if="config.events?.enabled !== false" :data="events" :config="config.events" />

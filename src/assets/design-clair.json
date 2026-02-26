@@ -1,1 +1,11 @@
-{}
+{
+  "background": "#e9dead",
+  "namazCardBg": "rgba(255, 255, 255, 0.2)",
+  "namazCardBorder": "rgba(0, 0, 0, 0.4)",
+  "textColor": "#000000",
+  "prayerCardBg": "rgba(255, 255, 255, 0.3)",
+  "prayerCardBorder": "rgba(0, 0, 0, 0.2)",
+  "prayerHeaderBg": "rgba(0, 0, 0, 0.15)",
+  "prayerHeaderBorder": "rgba(0, 0, 0, 0.2)",
+  "cellDivider": "rgba(0, 0, 0, 0.2)"
+}

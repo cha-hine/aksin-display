@@ -1,5 +1,14 @@
 <template>
-  <div class="prayer-display">
+  <div class="prayer-display" :style="{
+    '--text-color': design.textColor,
+    '--namaz-card-bg': design.namazCardBg,
+    '--namaz-card-border': design.namazCardBorder,
+    '--prayer-card-bg': design.prayerCardBg,
+    '--prayer-card-border': design.prayerCardBorder,
+    '--prayer-header-bg': design.prayerHeaderBg,
+    '--prayer-header-border': design.prayerHeaderBorder,
+    '--cell-divider': design.cellDivider,
+  }">
     <div class="clock-section">
       <div class="digital-time">{{ formattedTime }}</div>
       <div class="date-display">{{ formattedDate }}</div>
@@ -64,6 +73,10 @@ const props = defineProps({
   events: {
     type: Array,
     default: () => [],
+  },
+  design: {
+    type: Object,
+    default: () => ({}),
   },
 })
 
@@ -221,21 +234,15 @@ onBeforeUnmount(() => {
 <style scoped>
 .prayer-display {
   font-family: 'Calibri';
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--namaz-card-bg, rgba(255, 255, 255, 0.2));
   z-index: 1;
   width: 575px;
   height: 950px;
-  /*max-height: 100vh;*/
-  /*background-color: #e9dead;*/
   border-radius: 35px;
-    border: 1px solid rgba(0, 0, 0, 0.4);
-  /*box-shadow: -10px 0 60px rgba(0, 0, 0, 0.5);*/
+  border: 1px solid var(--namaz-card-border, rgba(0, 0, 0, 0.4));
   display: flex;
   flex-direction: column;
-  /*margin: 30px 10px;*/
-  /*padding: 40px 30px;*/
-  color: white;
-  z-index: 1;
+  color: var(--text-color, #000000);
   overflow-y: auto;
 }
 
@@ -252,12 +259,12 @@ onBeforeUnmount(() => {
   font-size: 80px;
   font-weight: bold;
   margin-bottom: 0;
-  color: #000000;
+  color: var(--text-color, #000000);
 }
 
 .date-display {
   font-size: 36px;
-  color: #000000;
+  color: var(--text-color, #000000);
   margin-bottom: 0;
 }
 
@@ -274,7 +281,7 @@ onBeforeUnmount(() => {
   text-align: center;
   font-weight: 900;
   margin: 0 0 30px 0;
-  color: #000000;
+  color: var(--text-color, #000000);
   font-size: 55px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -287,29 +294,29 @@ onBeforeUnmount(() => {
 }
 
 .prayer-card {
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--prayer-card-bg, rgba(255, 255, 255, 0.3));
   border-radius: 12px;
   overflow: hidden;
-  border: 2px solid rgba(0, 0, 0, 0.2);
+  border: 2px solid var(--prayer-card-border, rgba(0, 0, 0, 0.2));
   transition: all 0.3s ease;
 }
 
 .prayer-card:hover {
   transform: translateX(-5px);
-  border-color: rgba(0, 0, 0, 0.4);
+  border-color: var(--namaz-card-border, rgba(0, 0, 0, 0.4));
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
 }
 
 .prayer-name-header {
-  background: rgba(0, 0, 0, 0.15);
+  background: var(--prayer-header-bg, rgba(0, 0, 0, 0.15));
   padding: 5px;
   text-align: center;
   font-size: 40px;
   font-weight: bold;
-  color: #000000;
+  color: var(--text-color, #000000);
   text-transform: uppercase;
   letter-spacing: 1px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 2px solid var(--prayer-header-border, rgba(0, 0, 0, 0.2));
 }
 
 .prayer-times-row {
@@ -328,12 +335,12 @@ onBeforeUnmount(() => {
 }
 
 .prayer-time-cell:first-child {
-  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-right: 1px solid var(--cell-divider, rgba(0, 0, 0, 0.2));
 }
 
 .time-value {
   font-size: 54px;
-  color: #000000;
+  color: var(--text-color, #000000);
   font-weight: 800;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -369,7 +376,7 @@ onBeforeUnmount(() => {
   border-radius: 8px;
   border-left: 3px solid #5947ff;
   font-size: 24px;
-  color: #000000;
+  color: var(--text-color, #000000);
 }
 
 .event-item:last-child {

@@ -8,6 +8,10 @@ const props = defineProps({
     default: () => [],
     // Chaque slide: { description: string, image: string, duration: number (ms), etat: boolean }
   },
+  design: {
+    type: Object,
+    default: () => ({}),
+  },
 })
 
 const uploadUUrl = import.meta.env.VITE_STRAPI_UPLOAD_URL
@@ -80,7 +84,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="slide-container">
+  <div class="slide-container" :style="{ backgroundColor: props.design.background }">
     <TransitionGroup name="crossfade">
       <div v-if="currentSlide" :key="currentIndex" class="slide">
         <div v-if="currentSlide.image.url" class="slide-image-wrapper">
@@ -105,7 +109,7 @@ onUnmounted(() => {
   padding: 0;
   position: relative;
   overflow: hidden;
-  background-color: #e9dead;
+  background-color: #0d1b2a;
 }
 
 .slide {
