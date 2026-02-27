@@ -10,7 +10,16 @@
     '--cell-divider': design.cellDivider,
   }">
     <div class="clock-section">
-      <div class="digital-time">{{ formattedTime }}</div>
+      <div class="time-wrapper">
+        <template v-for="(item, idx) in clockItems" :key="idx">
+          <span v-if="item.type === 'separator'" class="colon">:</span>
+          <div v-else class="digit-slot">
+            <Transition name="digit">
+              <span :key="item.current" class="digit-face">{{ item.current }}</span>
+            </Transition>
+          </div>
+        </template>
+      </div>
       <div class="date-display">{{ formattedDate }}</div>
       <div>
         <span v-if="props.pre_texte_date" class="date-display">{{ props.pre_texte_date }}</span>
@@ -194,13 +203,32 @@ const minutes = ref(0)
 const seconds = ref(0)
 let interval = null
 
-const formattedTime = computed(() => {
-  return currentTime.value.toLocaleTimeString('fr-FR', {
+// Animated digit clock items: 6 digits + 2 separators for HH:MM:SS
+const clockItems = ref([
+  { type: 'digit', current: '0' },
+  { type: 'digit', current: '0' },
+  { type: 'separator' },
+  { type: 'digit', current: '0' },
+  { type: 'digit', current: '0' },
+  { type: 'separator' },
+  { type: 'digit', current: '0' },
+  { type: 'digit', current: '0' },
+])
+
+// Positions of digits in "HH:MM:SS" string → indices 0,1,3,4,6,7
+// These map 1:1 to clockItems indices 0,1,3,4,6,7
+const DIGIT_POSITIONS = [0, 1, 3, 4, 6, 7]
+
+const updateClockDigits = () => {
+  const timeStr = currentTime.value.toLocaleTimeString('fr-FR', {
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
   })
-})
+  DIGIT_POSITIONS.forEach((pos) => {
+    clockItems.value[pos].current = timeStr[pos]
+  })
+}
 
 const formattedDate = computed(() => {
   return currentTime.value.toLocaleDateString('fr-FR', {
@@ -216,6 +244,7 @@ const updateTime = () => {
   hours.value = currentTime.value.getHours() % 12
   minutes.value = currentTime.value.getMinutes()
   seconds.value = currentTime.value.getSeconds()
+  updateClockDigits()
 }
 
 onMounted(() => {
@@ -232,6 +261,8 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Iso&display=swap');
+
 .prayer-display {
   font-family: 'Calibri';
   background: var(--namaz-card-bg, rgba(255, 255, 255, 0.2));
@@ -255,11 +286,68 @@ onBeforeUnmount(() => {
   margin-top: 40px;
 }
 
-.digital-time {
+/* Animated digit clock */
+.time-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+
+.digit-slot {
+  position: relative;
+  width: 65px;
+  height: 100px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.colon {
+  font-family: 'Rubik Iso', cursive;
   font-size: 80px;
-  font-weight: bold;
-  margin-bottom: 0;
+  line-height: 80px;
   color: var(--text-color, #000000);
+  margin: 0 2px;
+  padding-bottom: 8px;
+}
+
+.digit-face {
+  font-family: 'Rubik Iso', cursive;
+  font-size: 80px;
+  line-height: 80px;
+  color: var(--text-color, #000000);
+  display: block;
+}
+
+/* Digit roll-up transition — mirrors the Lightning.js effect */
+.digit-enter-active,
+.digit-leave-active {
+  transition: transform 0.35s ease, opacity 0.35s ease;
+  position: absolute;
+}
+
+.digit-enter-from {
+  transform: translateY(100%) scale(0.5);
+  opacity: 0;
+}
+
+.digit-enter-to {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.digit-leave-from {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.digit-leave-to {
+  transform: translateY(-100%) scale(0.5);
+  opacity: 0;
 }
 
 .date-display {
