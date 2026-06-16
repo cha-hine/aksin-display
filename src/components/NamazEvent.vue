@@ -20,6 +20,7 @@
           </div>
         </template>
       </div>
+      <div class="clock-divider"></div>
       <div class="date-display">{{ formattedDate }}</div>
       <div>
         <span v-if="props.pre_texte_date" class="date-display">{{ props.pre_texte_date }}</span>
@@ -261,7 +262,7 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Rubik+Iso&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap');
 
 .prayer-display {
   font-family: 'Calibri';
@@ -284,6 +285,7 @@ onBeforeUnmount(() => {
   justify-content: center;
   margin-bottom: 20px;
   margin-top: 40px;
+  gap: 6px;
 }
 
 /* Animated digit clock */
@@ -292,14 +294,14 @@ onBeforeUnmount(() => {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 2px;
-  margin-bottom: 8px;
+  gap: 0;
+  letter-spacing: 2px;
 }
 
 .digit-slot {
   position: relative;
-  width: 65px;
-  height: 100px;
+  width: 64px;
+  height: 104px;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -307,53 +309,76 @@ onBeforeUnmount(() => {
 }
 
 .colon {
-  font-family: 'Rubik Iso', cursive;
-  font-size: 80px;
-  line-height: 80px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 78px;
+  line-height: 104px;
+  font-weight: 500;
   color: var(--text-color, #000000);
   margin: 0 2px;
-  padding-bottom: 8px;
+  opacity: 0.60;
+  padding-bottom: 4px;
 }
 
 .digit-face {
-  font-family: 'Rubik Iso', cursive;
-  font-size: 80px;
-  line-height: 80px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 92px;
+  line-height: 104px;
+  font-weight: 700;
   color: var(--text-color, #000000);
   display: block;
 }
 
-/* Digit roll-up transition — mirrors the Lightning.js effect */
+/* Subtle fade + slight vertical slide */
 .digit-enter-active,
 .digit-leave-active {
-  transition: transform 0.35s ease, opacity 0.35s ease;
+  transition: transform 0.28s ease, opacity 0.28s ease;
   position: absolute;
 }
 
 .digit-enter-from {
-  transform: translateY(100%) scale(0.5);
+  transform: translateY(28%);
   opacity: 0;
 }
 
 .digit-enter-to {
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
   opacity: 1;
 }
 
 .digit-leave-from {
-  transform: translateY(0) scale(1);
+  transform: translateY(0);
   opacity: 1;
 }
 
 .digit-leave-to {
-  transform: translateY(-100%) scale(0.5);
+  transform: translateY(-28%);
   opacity: 0;
 }
 
+/* Thin decorative rule between time and date */
+.clock-divider {
+  width: 72%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    currentColor 30%,
+    currentColor 70%,
+    transparent 100%
+  );
+  opacity: 0.22;
+  margin: 2px 0;
+}
+
 .date-display {
-  font-size: 36px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  letter-spacing: 1px;
   color: var(--text-color, #000000);
   margin-bottom: 0;
+  text-align: center;
+  opacity: 0.82;
 }
 
 .prayer-times {

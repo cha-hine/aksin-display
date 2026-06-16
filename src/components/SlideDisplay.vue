@@ -62,8 +62,8 @@ watch(
   { deep: true },
 )
 
-const CONTAINER_W = 1345
-const CONTAINER_H = 1000
+const CONTAINER_W = 1332
+const CONTAINER_H = 999
 
 const onImageLoad = (e) => {
   const img = e.target
@@ -103,8 +103,8 @@ onUnmounted(() => {
 
 <style scoped>
 .slide-container {
-  width: 1345px;
-  height: 1000px;
+  width: 1332px;
+  height: 999px;
   margin: 0;
   padding: 0;
   position: relative;
@@ -113,8 +113,8 @@ onUnmounted(() => {
 }
 
 .slide {
-  width: 1345px;
-  height: 1000px;
+  width: 1332px;
+  height: 999px;
   position: absolute;
   top: 0;
   left: 0;
@@ -122,15 +122,14 @@ onUnmounted(() => {
 
 .slide-image-wrapper {
   padding: 10px 0;
-  width: 1350px;
-  height: 1000px;
+  width: 1332px;
+  height: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .slide-image-wrapper img {
-
   max-width: 100%;
   max-height: 100%;
   border: 2px solid rgba(0, 0, 0, 0.2);
