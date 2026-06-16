@@ -1,14 +1,17 @@
 <template>
-  <div class="prayer-display" :style="{
-    '--text-color': design.textColor,
-    '--namaz-card-bg': design.namazCardBg,
-    '--namaz-card-border': design.namazCardBorder,
-    '--prayer-card-bg': design.prayerCardBg,
-    '--prayer-card-border': design.prayerCardBorder,
-    '--prayer-header-bg': design.prayerHeaderBg,
-    '--prayer-header-border': design.prayerHeaderBorder,
-    '--cell-divider': design.cellDivider,
-  }">
+  <div
+    class="prayer-display"
+    :style="{
+      '--text-color': design.textColor,
+      '--namaz-card-bg': design.namazCardBg,
+      '--namaz-card-border': design.namazCardBorder,
+      '--prayer-card-bg': design.prayerCardBg,
+      '--prayer-card-border': design.prayerCardBorder,
+      '--prayer-header-bg': design.prayerHeaderBg,
+      '--prayer-header-border': design.prayerHeaderBorder,
+      '--cell-divider': design.cellDivider,
+    }"
+  >
     <div class="clock-section">
       <div class="time-wrapper">
         <template v-for="(item, idx) in clockItems" :key="idx">
@@ -283,9 +286,9 @@ onBeforeUnmount(() => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
-  margin-top: 40px;
-  gap: 6px;
+  margin-bottom: 6px;
+  margin-top: 10px;
+  gap: 3px;
 }
 
 /* Animated digit clock */
@@ -315,7 +318,7 @@ onBeforeUnmount(() => {
   font-weight: 500;
   color: var(--text-color, #000000);
   margin: 0 2px;
-  opacity: 0.60;
+  opacity: 0.6;
   padding-bottom: 4px;
 }
 
@@ -331,7 +334,9 @@ onBeforeUnmount(() => {
 /* Subtle fade + slight vertical slide */
 .digit-enter-active,
 .digit-leave-active {
-  transition: transform 0.28s ease, opacity 0.28s ease;
+  transition:
+    transform 0.28s ease,
+    opacity 0.28s ease;
   position: absolute;
 }
 
@@ -376,18 +381,16 @@ onBeforeUnmount(() => {
   font-weight: 600;
   letter-spacing: 1px;
   color: var(--text-color, #000000);
-  margin-bottom: 0;
+  margin: 10px 0;
   text-align: center;
   opacity: 0.82;
 }
 
 .prayer-times {
-
   border-radius: 15px;
-  padding: 25px;
-  margin-bottom: 20px;
+  padding: 6px 20px;
+  margin-bottom: 4px;
   backdrop-filter: blur(10px);
-
 }
 
 .prayer-times h2 {
@@ -403,7 +406,7 @@ onBeforeUnmount(() => {
 .prayer-table {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .prayer-card {
@@ -422,10 +425,10 @@ onBeforeUnmount(() => {
 
 .prayer-name-header {
   background: var(--prayer-header-bg, rgba(0, 0, 0, 0.15));
-  padding: 5px;
+  padding: 3px;
   text-align: center;
   font-family: 'Oswald', sans-serif;
-  font-size: 44px;
+  font-size: 38px;
   font-weight: 700;
   color: var(--text-color, #000000);
   text-transform: uppercase;
@@ -440,7 +443,7 @@ onBeforeUnmount(() => {
 }
 
 .prayer-time-cell {
-  padding: 10px;
+  padding: 6px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -454,7 +457,7 @@ onBeforeUnmount(() => {
 
 .time-value {
   font-family: 'Oswald', sans-serif;
-  font-size: 58px;
+  font-size: 52px;
   color: var(--text-color, #000000);
   font-weight: 700;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -462,7 +465,7 @@ onBeforeUnmount(() => {
 
 .time-title {
   font-family: 'Oswald', sans-serif;
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 500;
   letter-spacing: 1px;
   text-transform: uppercase;
