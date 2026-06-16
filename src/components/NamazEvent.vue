@@ -265,7 +265,7 @@ onBeforeUnmount(() => {
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap');
 
 .prayer-display {
-  font-family: 'Calibri';
+  font-family: 'Oswald', sans-serif;
   background: var(--namaz-card-bg, rgba(255, 255, 255, 0.2));
   z-index: 1;
   width: 575px;
@@ -372,8 +372,8 @@ onBeforeUnmount(() => {
 
 .date-display {
   font-family: 'Oswald', sans-serif;
-  font-size: 30px;
-  font-weight: 500;
+  font-size: 38px;
+  font-weight: 600;
   letter-spacing: 1px;
   color: var(--text-color, #000000);
   margin-bottom: 0;
@@ -424,11 +424,12 @@ onBeforeUnmount(() => {
   background: var(--prayer-header-bg, rgba(0, 0, 0, 0.15));
   padding: 5px;
   text-align: center;
-  font-size: 40px;
-  font-weight: bold;
+  font-family: 'Oswald', sans-serif;
+  font-size: 44px;
+  font-weight: 700;
   color: var(--text-color, #000000);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   border-bottom: 2px solid var(--prayer-header-border, rgba(0, 0, 0, 0.2));
 }
 
@@ -452,14 +453,19 @@ onBeforeUnmount(() => {
 }
 
 .time-value {
-  font-size: 54px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 58px;
   color: var(--text-color, #000000);
-  font-weight: 800;
+  font-weight: 700;
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .time-title {
-  font-size: 26px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
   margin: 0;
   padding: 0;
 }

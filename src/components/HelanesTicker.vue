@@ -15,8 +15,9 @@ const props = defineProps({
 const tickerStyle = computed(() => ({
   backgroundColor: '#000000',
   color: '#ffffff',
+  fontFamily: "'Oswald', sans-serif",
   fontSize: '3.25em',
-  fontWeight: 500,
+  fontWeight: 700,
   height: '80px',
 }))
 
@@ -111,6 +112,8 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&display=swap');
+
 .bandeau-container {
   width: 100vw;
   overflow: hidden;
@@ -134,7 +137,7 @@ onBeforeUnmount(() => {
 .bandeau-content {
   display: inline-block;
   white-space: nowrap;
-  font-family: Arial, sans-serif;
+  font-family: 'Oswald', sans-serif;
   will-change: transform;
   position: absolute;
   left: 0;
