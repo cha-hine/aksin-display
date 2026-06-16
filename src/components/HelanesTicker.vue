@@ -6,6 +6,10 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  vitesse_helane: {
+    type: Number,
+    default: 1,
+  },
 })
 
 const tickerStyle = computed(() => ({
@@ -17,7 +21,7 @@ const tickerStyle = computed(() => ({
 }))
 
 // Vitesse en pixels par frame
-const speed = 1 // ← C'est un nombre, pas une ref
+const speed = computed(() => props.vitesse_helane)
 
 const bandeau1 = ref(null)
 const bandeau2 = ref(null)
@@ -51,8 +55,8 @@ function recalcAndReposition() {
 }
 
 function animate() {
-  x1.value -= speed // ← Changé de speed.value à speed
-  x2.value -= speed // ← Changé de speed.value à speed
+  x1.value -= speed.value
+  x2.value -= speed.value
 
   if (x1.value <= -width) {
     x1.value = x2.value + width

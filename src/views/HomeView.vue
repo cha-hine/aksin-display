@@ -14,9 +14,7 @@ import SlideDisplay from '@/components/SlideDisplay.vue'
 
 const prayerTimes = ref([])
 
-const formatJamat = (time) => time ? time.substring(0, 5) : ''
-
-
+const formatJamat = (time) => (time ? time.substring(0, 5) : '')
 
 const events = ref(['Cours de Coran - Samedi 18h00', 'Conférence islamique - Vendredi'])
 
@@ -29,7 +27,7 @@ const loading = ref(true)
 const error = ref(null)
 
 const designTheme = computed(() =>
-  affichage.value?.data?.design === 'Clair' ? designClair : designFonce
+  affichage.value?.data?.design === 'Clair' ? designClair : designFonce,
 )
 
 const loadPrayerTimes = () => {
@@ -38,15 +36,26 @@ const loadPrayerTimes = () => {
   const month = String(now.getMonth() + 1).padStart(2, '0')
   const today = `${day}/${month}`
 
-
   const lines = csvData.trim().split('\n')
   for (let i = 1; i < lines.length; i++) {
     const cols = lines[i].split(';')
     if (cols[0] === today) {
       prayerTimes.value = [
-        { name: 'Soubh', awwal: cols[1], jamat: formatJamat(affichage.value.data.namaz_jamat_fajr) },
-        { name: 'Zohrain', awwal: cols[3], jamat: formatJamat(affichage.value.data.namaz_jamat_zohrain) },
-        { name: 'Magribain', awwal: cols[5], jamat: formatJamat(affichage.value.data.namaz_jamat_magribain) },
+        {
+          name: 'Soubh',
+          awwal: cols[1],
+          jamat: formatJamat(affichage.value.data.namaz_jamat_fajr),
+        },
+        {
+          name: 'Zohrain',
+          awwal: cols[3],
+          jamat: formatJamat(affichage.value.data.namaz_jamat_zohrain),
+        },
+        {
+          name: 'Magribain',
+          awwal: cols[5],
+          jamat: formatJamat(affichage.value.data.namaz_jamat_magribain),
+        },
       ]
       break
     }
@@ -113,7 +122,7 @@ socket.on('create:helane', () => {
 })
 
 socket.on('update:slide', () => {
-  console.log("test update:slide event received")
+  console.log('test update:slide event received')
   fetchSlides()
 })
 
@@ -128,7 +137,6 @@ onMounted(async () => {
   // Charger les données initiales
   try {
     await Promise.all([fetchAffichage(), fetchHelanes(), fetchSlides()])
-
   } catch (e) {
     error.value = e?.message ?? String(e)
   } finally {
@@ -178,7 +186,11 @@ onBeforeUnmount(() => {
           :design="designTheme"
         />
       </div>
-      <HelanesTicker v-if="affichage.data.helane" :data="helanes.data" />
+      <HelanesTicker
+        v-if="affichage.data.helane"
+        :data="helanes.data"
+        :vitesse_helane="affichage.data.vitesse_helane"
+      />
 
       <div class="slide-wrapper" :class="{ 'slide-wrapper--centered': !affichage.data.helane }">
         <SlideDisplay :slides="slides" :design="designTheme" />
